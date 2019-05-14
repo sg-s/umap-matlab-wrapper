@@ -18,3 +18,7 @@ eval_str =  [p1 filesep 'run_umap.py" ' metric];
 system(eval_str);
 
 R = h5read('data.h5','/R')';
+
+% clean up
+delete('D.mat')
+delete('data.h5')
