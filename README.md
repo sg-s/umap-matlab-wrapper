@@ -1,4 +1,4 @@
-# MATLAB wrapper for umap
+# MATLAB wrapper for [umap](https://github.com/lmcinnes/umap)
 
 ![](https://user-images.githubusercontent.com/6005346/57731525-d98bb980-7668-11e9-8d85-3c35e422f2ab.png)
 
