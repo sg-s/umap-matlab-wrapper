@@ -8,7 +8,7 @@ end
 
 
 containing_dir = fileparts(which('umap'));
-save([containing_dir 'D.mat'],'D','-v7.3')
+save([containing_dir filesep 'D.mat'],'D','-v7.3')
 
 
 p1 = ['python "' containing_dir];
@@ -17,8 +17,8 @@ p1 = ['python "' containing_dir];
 eval_str =  [p1 filesep 'run_umap.py" ' metric];
 system(eval_str);
 
-R = h5read('data.h5','/R')';
+R = h5read([containing_dir filesep 'data.h5'],'/R')';
 
 % clean up
-delete('D.mat')
-delete('data.h5')
+delete([containing_dir filesep 'D.mat'])
+delete([containing_dir filesep 'data.h5'])
