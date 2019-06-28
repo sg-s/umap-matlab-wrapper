@@ -14,13 +14,9 @@ import sys
 import umap
 import os
 
-
 # read options
-hf = h5py.File(os.path.dirname(sys.argv[0]) + '/options.mat','r')
-
-
-
-
+script_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+hf = h5py.File(os.path.join(script_path, 'options.mat'), 'r')
 
 n_neighbors = hf['n_neighbors']
 n_neighbors = int(n_neighbors[0][0])
@@ -64,11 +60,11 @@ transform_seed = (transform_seed[0][0])
 metric = sys.argv[1]
 
 
-hf = h5py.File(os.path.dirname(sys.argv[0]) + '/D.mat','r')
+hf = h5py.File(os.path.join(script_path, 'D.mat'),'r')
 D = np.array(hf.get('D'));
 
 reducer = umap.UMAP(metric=metric,n_neighbors=n_neighbors,n_components=n_components,learning_rate=learning_rate,min_dist=min_dist,spread=spread,set_op_mix_ratio=set_op_mix_ratio,local_connectivity=local_connectivity,repulsion_strength=repulsion_strength,negative_sample_rate=negative_sample_rate,transform_queue_size=transform_queue_size,target_n_neighbors=target_n_neighbors,target_weight=target_weight,transform_seed=transform_seed)
 embedding = reducer.fit_transform(D)
 
-with h5py.File(os.path.dirname(sys.argv[0]) + '/data.h5', 'w') as hf:
+with h5py.File(os.path.join(script_path, 'data.h5'), 'w') as hf:
     hf.create_dataset('R', data=embedding)
