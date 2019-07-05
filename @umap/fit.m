@@ -21,7 +21,13 @@ p1 = ['python "' self.containing_dir];
 eval_str =  [p1 filesep 'run_umap.py" ' self.metric];
 system(eval_str);
 
-R = h5read([self.containing_dir filesep 'data.h5'],'/R')';
+output_data_path = [self.containing_dir filesep 'data.h5'];
+
+try
+	R = h5read(output_data_path,'/R')';
+catch
+	error('Failed to read output data file, does it exist?')
+end
 
 % clean up
 delete([self.containing_dir filesep 'D.mat'])
