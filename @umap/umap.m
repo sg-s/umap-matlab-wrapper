@@ -1,4 +1,4 @@
-classdef umap
+classdef umap < Constructable
 
 properties
 
@@ -27,7 +27,8 @@ end % props
 
 methods 
 
-	function self = umap()
+	function self = umap(varargin)
+		self = self@Constructable(varargin{:});   
 		self.containing_dir = fileparts(fileparts(which('umap')));
 	end % constructor
 
