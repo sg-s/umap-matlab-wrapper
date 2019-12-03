@@ -15,4 +15,4 @@ for i = 1:length(p)
 	options.(p{i}) = self.(p{i});
 end
 
-save([self.containing_dir filesep 'options.mat'],'-struct','options')
+save([self.containing_dir filesep 'options.mat'],'-struct','options', '-v7.3')
