@@ -7,15 +7,35 @@
 # Usage:
 # python run_umap.py "$metric"
 
+
+
+
+import sys
+print(sys.executable)
+
+import os
 import scipy.io
 import numpy as np
 import h5py
-import sys
 import umap
-import os
+
+
+
+
+
+
+print(umap.__file__)
+
+# silence NumbaPerformanceWarning
+import warnings
+from numba.errors import NumbaPerformanceWarning
+
+warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 
 # read options
 script_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+
 hf = h5py.File(os.path.join(script_path, 'options.mat'), 'r')
 
 n_neighbors = hf['n_neighbors']
@@ -57,14 +77,34 @@ target_weight = (target_weight[0][0])
 transform_seed = hf['transform_seed']
 transform_seed = (transform_seed[0][0])
 
-metric = sys.argv[1]
 
+labels = hf['labels'][:]
+labels = labels.astype(np.int8).flatten()
+
+metric = sys.argv[1]
 
 hf = h5py.File(os.path.join(script_path, 'D.mat'),'r')
 D = np.array(hf.get('D'));
 
+print("Using metric " + metric)
+
+
 reducer = umap.UMAP(metric=metric,n_neighbors=n_neighbors,n_components=n_components,learning_rate=learning_rate,min_dist=min_dist,spread=spread,set_op_mix_ratio=set_op_mix_ratio,local_connectivity=local_connectivity,repulsion_strength=repulsion_strength,negative_sample_rate=negative_sample_rate,transform_queue_size=transform_queue_size,target_n_neighbors=target_n_neighbors,target_weight=target_weight,transform_seed=transform_seed)
-embedding = reducer.fit_transform(D)
+
+print(labels.size)
+
+print(D.size)
+
+if labels.size == 2:
+	# labels is empty 
+	# do unsupervised embedding 
+
+	embedding = reducer.fit_transform(D)
+
+else:
+	print("Attempting supervised embedding...")
+	fitter = reducer.fit(D, y=labels)
+	embedding = fitter.embedding_
 
 with h5py.File(os.path.join(script_path, 'data.h5'), 'w') as hf:
     hf.create_dataset('R', data=embedding)

@@ -54,3 +54,6 @@ end
 % clean up
 delete([self.containing_dir filesep 'D.mat'])
 delete([self.containing_dir filesep 'data.h5'])
+delete([self.containing_dir filesep 'options.mat'])
+
+disp('All Done!')

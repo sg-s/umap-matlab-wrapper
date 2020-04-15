@@ -8,8 +8,8 @@ This repo provides a simple wrapper for [umap](https://github.com/lmcinnes/umap)
 
 1. Install umap using `conda install -c conda-forge umap-learn`
 2. Install `h5py` using `conda install h5py`
-3. Install [condalab](https://github.com/sg-s/condalab)
-4. Run `conda.init` to configure `condalab` in MATLAB
+3. (optional) Install [condalab](https://github.com/sg-s/condalab)
+4. (optional) Run `conda.init` to configure `condalab` in MATLAB
 
 # Use 
 
