@@ -1,4 +1,4 @@
-classdef umap < Constructable
+classdef umap < Constructable & Hashable
 
 properties
 

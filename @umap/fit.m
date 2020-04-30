@@ -27,6 +27,17 @@ if nargin == 0
 	error('Not enough input arguments')
 end
 
+% check the cache first 
+cacheloc = pathlib.join(fileparts(fileparts(which('umap'))),'.cache');
+filelib.mkdir(cacheloc)
+h = self.hash;
+h = hashlib.md5hash([h hashlib.md5hash(D)]);
+if exist(pathlib.join(cacheloc,[h,'.mat']),'file') == 2
+	load(pathlib.join(cacheloc,[h,'.mat']),'R')
+	return
+end
+
+
 % transpose the matrix because the Python script doesn't expect data the same way as MATLAB
 D = D';
 
@@ -57,3 +68,5 @@ delete([self.containing_dir filesep 'data.h5'])
 delete([self.containing_dir filesep 'options.mat'])
 
 disp('All Done!')
+
+save(pathlib.join(cacheloc,[h,'.mat']),'R')
