@@ -6,7 +6,9 @@ This repo provides a simple wrapper for [umap](https://github.com/lmcinnes/umap)
 
 # Installation
 
-1. Install umap using `conda install -c conda-forge umap-learn`
+0. Install a required dependency using `git clone git@github.com:sg-s/srinivas.gs_mtools.git`
+1. Add that folder to your MATLAB path. Don't add subfolders. 
+1. Install umap using `conda install -c conda-forge umap-learn` (paste this in your shell, not your MATLAB prompt)
 2. Install `h5py` using `conda install h5py`
 3. (optional) Install [condalab](https://github.com/sg-s/condalab)
 4. (optional) Run `conda.init` to configure `condalab` in MATLAB
