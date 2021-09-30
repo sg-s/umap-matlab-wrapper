@@ -20,7 +20,7 @@ properties
 	transform_seed (1,1) double = 42
 
 
-	labels double 
+	labels (:,1) double 
 
 	containing_dir
 
